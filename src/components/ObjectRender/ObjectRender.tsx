@@ -1,4 +1,5 @@
-import './ObjectRender.css'
+import styles from './ObjectRender.module.css'
+import cn from 'classnames'
 
 interface IProps {
   object: Record<string, string>
@@ -6,16 +7,19 @@ interface IProps {
 
 export const ObjectRender = ({ object }: IProps) => {
   return (
-    <div className="record">
-      <div className="recordLine">{'{'}</div>
+    <div className={styles.record}>
+      <div className={styles.recordLine}>{'{'}</div>
       {Object.keys(object).map((key) => {
         return (
-          <div key={key} className="recordLine recordLineMargin">
+          <div
+            key={key}
+            className={cn(styles.recordLine, styles.recordLineMargin)}
+          >
             {key}: {object[key]}
           </div>
         )
       })}
-      <div className="recordLine">{'}'}</div>
+      <div className={styles.recordLine}>{'}'}</div>
     </div>
   )
 }
