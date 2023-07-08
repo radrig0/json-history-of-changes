@@ -1,0 +1,3 @@
+node_modules
+app/tools/handlebars.ts
+**/*.md
