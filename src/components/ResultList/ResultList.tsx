@@ -3,7 +3,7 @@ import cn from 'classnames'
 import React, { useCallback } from 'react'
 import { ObjectRender } from '../ObjectRender/ObjectRender'
 import { Diff } from '../Diff/Diff'
-import { IJsonDiff, TValue } from '../../App'
+import { IJsonDiff, TValue } from '../../models/models'
 
 interface IProps {
   jsonObjects: Record<string, TValue>[]
@@ -33,9 +33,9 @@ export const ResultList = ({ jsonObjects, jsonDiffs, remove }: IProps) => {
           {jsonDiffs[index] && (
             <div className={styles.column}>
               <div key={`jsonDiffs_${index}`} className={styles.diffItem}>
-                <Diff type={'Changed'} record={jsonDiffs[index].changed} />
-                <Diff type={'Added'} record={jsonDiffs[index].added} />
-                <Diff type={'Removed'} record={jsonDiffs[index].removed} />
+                <Diff type={'Changed'} record={jsonDiffs[index].Changed} />
+                <Diff type={'Added'} record={jsonDiffs[index].Added} />
+                <Diff type={'Removed'} record={jsonDiffs[index].Removed} />
               </div>
             </div>
           )}

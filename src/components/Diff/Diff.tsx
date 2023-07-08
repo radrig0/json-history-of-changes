@@ -1,18 +1,11 @@
 import styles from './Diff.module.css'
-import { IDiff, TValue } from '../../App'
 import { useCallback } from 'react'
 import { valueRender } from '../../utils/valueRender'
-
-type TDiffType = 'Changed' | 'Added' | 'Removed'
+import { IChanges, IDiff, TDiffType } from '../../models/models'
 
 interface IProps {
   type: TDiffType
   record: IDiff
-}
-
-interface IChanges {
-  prevValue: TValue
-  currentValue: TValue
 }
 
 export const Diff = ({ type, record }: IProps) => {

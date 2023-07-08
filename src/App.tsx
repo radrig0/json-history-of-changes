@@ -2,21 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styles from './App.module.css'
 import cn from 'classnames'
 import { ResultList } from './components/ResultList/ResultList'
-
-export type TValue = string | number | boolean
-
-export interface IDiff {
-  [key: string]: {
-    prevValue: TValue
-    currentValue: TValue
-  }
-}
-
-export interface IJsonDiff {
-  changed: IDiff
-  added: IDiff
-  removed: IDiff
-}
+import { IDiff, IJsonDiff } from './models/models'
 
 function App() {
   const [textValue, setTextValue] = useState('')
@@ -69,9 +55,9 @@ function App() {
   useEffect(() => {
     setJsonDiffs(() => {
       return jsonObjects.map((jsonObject, index) => {
-        const changed: IDiff = {}
-        const added: IDiff = {}
-        const removed: IDiff = {}
+        const Changed: IDiff = {}
+        const Added: IDiff = {}
+        const Removed: IDiff = {}
 
         if (index) {
           Object.keys({ ...jsonObject, ...jsonObjects[index - 1] }).forEach(
@@ -80,20 +66,20 @@ function App() {
               const currentValue = jsonObject[jsonKey]
 
               if (prevValue === undefined) {
-                added[jsonKey] = { prevValue, currentValue }
+                Added[jsonKey] = { prevValue, currentValue }
               } else if (currentValue === undefined) {
-                removed[jsonKey] = { prevValue, currentValue }
+                Removed[jsonKey] = { prevValue, currentValue }
               } else if (prevValue !== currentValue) {
-                changed[jsonKey] = { prevValue, currentValue }
+                Changed[jsonKey] = { prevValue, currentValue }
               }
             }
           )
         }
 
         return {
-          changed,
-          added,
-          removed,
+          Changed,
+          Added,
+          Removed,
         }
       })
     })

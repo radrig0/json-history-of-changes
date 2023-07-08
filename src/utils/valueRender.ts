@@ -1,4 +1,4 @@
-import { TValue } from '../App'
+import { TValue } from '../models/models'
 
 export const valueRender = (value: TValue) => {
   switch (typeof value) {

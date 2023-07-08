@@ -1,7 +1,8 @@
 import styles from './ObjectRender.module.css'
 import cn from 'classnames'
 import { valueRender } from '../../utils/valueRender'
-import { TValue } from '../../App'
+
+import { TValue } from '../../models/models'
 
 interface IProps {
   object: Record<string, TValue>
