@@ -17,3 +17,11 @@ export interface IChanges {
 }
 
 export type TDiffType = 'Changed' | 'Added' | 'Removed'
+
+export type TStatus = 'success' | 'failed'
+
+export interface IJsonParseResult {
+  parsedData: Record<string, TValue>[]
+  status: TStatus
+  errorMessage: string
+}

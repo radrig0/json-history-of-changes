@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styles from './App.module.css'
 import cn from 'classnames'
 import { ResultList } from './components/ResultList/ResultList'
-import { IDiff, IJsonDiff } from './models/models'
+import { IDiff, IJsonDiff, TValue } from './models/models'
+import { jsonParse } from './utils/jsonParse'
 
 function App() {
   const [textValue, setTextValue] = useState('')
   const [textError, setTextError] = useState('')
-  const [jsonObjects, setJsonObjects] = useState<Record<string, string>[]>([])
+  const [jsonObjects, setJsonObjects] = useState<Record<string, TValue>[]>([])
   const [jsonDiffs, setJsonDiffs] = useState<IJsonDiff[]>([])
 
   const onChangeTextValue: React.ChangeEventHandler<HTMLTextAreaElement> =
@@ -20,21 +21,17 @@ function App() {
       return
     }
 
-    try {
-      const result = JSON.parse(textValue)
+    const result = jsonParse(textValue)
 
+    if (result.status === 'success') {
       setJsonObjects((prevState) => {
-        if (Array.isArray(result)) {
-          return [...prevState, ...result]
-        } else {
-          return [...prevState, result]
-        }
+        return [...prevState, ...result.parsedData]
       })
 
       setTextValue('')
       setTextError('')
-    } catch (e) {
-      setTextError(`Wrong value: ${e}`)
+    } else {
+      setTextError(result.errorMessage)
     }
   }, [textValue])
 
