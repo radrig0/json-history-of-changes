@@ -6,10 +6,12 @@
   {
     "field": "newValue",
     "typedField": "0",
-    "newField": "value"
+    "newField": "value",
+    "booleanValue": true
   },
   {
     "typedField": 0,
-    "newField": "newValue"
+    "newField": "newValue",
+    "booleanValue": false
   }
 ]
