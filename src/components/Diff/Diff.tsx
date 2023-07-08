@@ -39,7 +39,9 @@ export const Diff = ({ type, record }: IProps) => {
 
   return (
     <div className={styles.diffItem}>
-      <div className={styles.diffType}>{type}:</div>
+      <div className={styles.diffType}>
+        {type} [{Object.keys(record).length}]:
+      </div>
       {Object.keys(record).map((recordKey) => {
         const value = record[recordKey]
         return (

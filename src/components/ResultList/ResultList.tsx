@@ -12,6 +12,38 @@ interface IProps {
 }
 
 export const ResultList = ({ jsonObjects, jsonDiffs, remove }: IProps) => {
+  const diffRender = useCallback(
+    (index: number) => {
+      const diff = jsonDiffs[index]
+      if (!diff) {
+        return
+      }
+
+      const changedLength = Object.keys(diff.Changed).length
+      const addedLength = Object.keys(diff.Added).length
+      const removedLength = Object.keys(diff.Removed).length
+
+      const isEmptyDiff = !(changedLength + addedLength + removedLength)
+
+      if (isEmptyDiff) {
+        return 'Object is not changed'
+      }
+
+      return (
+        <div key={`jsonDiffs_${index}`} className={styles.diffItem}>
+          {Boolean(changedLength) && (
+            <Diff type={'Changed'} record={diff.Changed} />
+          )}
+          {Boolean(addedLength) && <Diff type={'Added'} record={diff.Added} />}
+          {Boolean(removedLength) && (
+            <Diff type={'Removed'} record={diff.Removed} />
+          )}
+        </div>
+      )
+    },
+    [jsonDiffs]
+  )
+
   const listItemRender = useCallback(
     (jsonObject: Record<string, TValue>, index: number) => {
       return (
@@ -29,20 +61,11 @@ export const ResultList = ({ jsonObjects, jsonDiffs, remove }: IProps) => {
               remove
             </button>
           </div>
-
-          {jsonDiffs[index] && (
-            <div className={styles.column}>
-              <div key={`jsonDiffs_${index}`} className={styles.diffItem}>
-                <Diff type={'Changed'} record={jsonDiffs[index].Changed} />
-                <Diff type={'Added'} record={jsonDiffs[index].Added} />
-                <Diff type={'Removed'} record={jsonDiffs[index].Removed} />
-              </div>
-            </div>
-          )}
+          <div className={styles.column}>{diffRender(index)}</div>
         </div>
       )
     },
-    [jsonDiffs, remove]
+    [diffRender, remove]
   )
 
   const listRender = useCallback(
