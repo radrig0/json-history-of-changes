@@ -117,8 +117,8 @@ function App() {
           onChange={onChangeTextValue}
         />
         <div>
-          <button onClick={add}>Add</button>
-          <button onClick={clearInput}>Clear input</button>
+          <button onClick={add}>Add</button>{' '}
+          <button onClick={clearInput}>Clear input</button>{' '}
           <button onClick={clearList}>Clear list</button>
         </div>
       </div>

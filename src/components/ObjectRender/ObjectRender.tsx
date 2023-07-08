@@ -1,9 +1,10 @@
 import styles from './ObjectRender.module.css'
 import cn from 'classnames'
 import { valueRender } from '../../utils/valueRender'
+import { TValue } from '../../App'
 
 interface IProps {
-  object: Record<string, string>
+  object: Record<string, TValue>
 }
 
 export const ObjectRender = ({ object }: IProps) => {
