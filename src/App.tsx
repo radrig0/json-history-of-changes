@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from 'react'
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IJsonDiff {
+  changed: Record<string, string>
+  added: Record<string, string>
+  removed: Record<string, string>
 }
 
-export default App;
+function App() {
+  const [textValue, setTextValue] = useState('')
+  const [jsonObjects, setJsonObjects] = useState<object[]>([])
+  const [jsonDiffs, setJsonDiffs] = useState<IJsonDiff[]>([])
+
+  const onChangeTextValue: React.ChangeEventHandler<HTMLTextAreaElement> =
+    useCallback((event) => {
+      setTextValue(event.target.value)
+    }, [])
+
+  const add = useCallback(() => {}, [])
+
+  return (
+    <div className="App">
+      <div className="inputWrapper">
+        <div className="title">Put your object or array of object here</div>
+        <textarea
+          name="jsonInput"
+          id="jsonInput"
+          cols={30}
+          rows={10}
+          value={textValue}
+          onChange={onChangeTextValue}
+        />
+        <button onClick={add}>Add</button>
+      </div>
+      <div className="resultWrapper">
+        <div className="objectColumn">Your jsons:</div>
+
+        <div className="diffColumn">Diffs</div>
+      </div>
+    </div>
+  )
+}
+
+export default App
