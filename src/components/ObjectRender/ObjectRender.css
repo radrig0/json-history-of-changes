@@ -1,0 +1,8 @@
+.record {
+    display: flex;
+    flex-direction: column;
+}
+
+.recordLineMargin {
+    margin-left: 10px;
+}

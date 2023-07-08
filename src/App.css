@@ -16,13 +16,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 50px;
+    padding: 10px;
 }
 
 .resultWrapper {
     display: flex;
     flex-direction: column;
-    background: #cccccc;
+    background: #eeeeee;
 }
 
 .jsonItem {
@@ -30,6 +30,15 @@
     flex-direction: row;
     margin-bottom: 10px;
     justify-content: stretch;
+}
+
+.jsonObject {
+    display: flex;
+    flex-grow: 1;
+}
+
+.order {
+    width: 40px;
 }
 
 .column {
@@ -40,4 +49,18 @@
     justify-content: space-between;
     padding: 10px;
     width: 50%;
+}
+
+.textInput {
+    min-width: 100%;
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+.error {
+    border-color: red;
+}
+
+.errorMessage {
+    color: red;
 }

@@ -1,0 +1,15 @@
+.diffItem {
+    margin-bottom: 10px;
+}
+
+.Changed {
+    background: yellow;
+}
+
+.Added {
+    background: lightgreen;
+}
+
+.Removed {
+    background: pink;
+}
