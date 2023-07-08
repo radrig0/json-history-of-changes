@@ -16,6 +16,10 @@ function App() {
     }, [])
 
   const add = useCallback(() => {
+    if (!textValue) {
+      return
+    }
+
     try {
       const result = JSON.parse(textValue)
 
