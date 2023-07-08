@@ -1,13 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './App.module.css'
-import { Diff } from './components/Diff/Diff'
-import { ObjectRender } from './components/ObjectRender/ObjectRender'
 import cn from 'classnames'
+import { ResultList } from './components/ResultList/ResultList'
 
-interface IJsonDiff {
-  changed: Record<string, string>
-  added: Record<string, string>
-  removed: Record<string, string>
+export type TValue = string | number | boolean
+
+export interface IDiff {
+  [key: string]: {
+    prevValue: TValue
+    currentValue: TValue
+  }
+}
+
+export interface IJsonDiff {
+  changed: IDiff
+  added: IDiff
+  removed: IDiff
 }
 
 function App() {
@@ -24,9 +32,15 @@ function App() {
   const add = useCallback(() => {
     try {
       const result = JSON.parse(textValue)
+
       setJsonObjects((prevState) => {
-        return [...prevState, result]
+        if (Array.isArray(result)) {
+          return [...prevState, ...result]
+        } else {
+          return [...prevState, result]
+        }
       })
+
       setTextValue('')
       setTextError('')
     } catch (e) {
@@ -55,9 +69,9 @@ function App() {
   useEffect(() => {
     setJsonDiffs(() => {
       return jsonObjects.map((jsonObject, index) => {
-        const changed: Record<string, string> = {}
-        const added: Record<string, string> = {}
-        const removed: Record<string, string> = {}
+        const changed: IDiff = {}
+        const added: IDiff = {}
+        const removed: IDiff = {}
 
         if (index) {
           Object.keys({ ...jsonObject, ...jsonObjects[index - 1] }).forEach(
@@ -65,12 +79,12 @@ function App() {
               const prevValue = jsonObjects[index - 1][jsonKey]
               const currentValue = jsonObject[jsonKey]
 
-              if (!currentValue) {
-                removed[jsonKey] = prevValue
-              } else if (!prevValue) {
-                added[jsonKey] = currentValue
+              if (prevValue === undefined) {
+                added[jsonKey] = { prevValue, currentValue }
+              } else if (currentValue === undefined) {
+                removed[jsonKey] = { prevValue, currentValue }
               } else if (prevValue !== currentValue) {
-                changed[jsonKey] = `${prevValue} -> ${currentValue}`
+                changed[jsonKey] = { prevValue, currentValue }
               }
             }
           )
@@ -110,48 +124,11 @@ function App() {
       </div>
 
       {Boolean(jsonObjects.length) && (
-        <div className={styles.resultWrapper}>
-          <div className={styles.jsonItem}>
-            <div className={cn(styles.column, styles.title)}>Your jsons:</div>
-            <div className={cn(styles.column, styles.title)}>Diffs:</div>
-          </div>
-
-          {jsonObjects.map((jsonObject, index) => {
-            return (
-              <div key={`jsonObject_${index}`} className={styles.jsonItem}>
-                <div className={styles.column}>
-                  <div className={styles.order}>{index}.</div>
-                  <div className={styles.jsonObject}>
-                    <ObjectRender object={jsonObject} />
-                  </div>
-                  <button
-                    onClick={() => {
-                      remove(index)
-                    }}
-                  >
-                    remove
-                  </button>
-                </div>
-
-                {jsonDiffs[index] && (
-                  <div className="column">
-                    <div key={`jsonDiffs_${index}`} className="diffItem">
-                      <Diff
-                        type={'Changed'}
-                        record={jsonDiffs[index].changed}
-                      />
-                      <Diff type={'Added'} record={jsonDiffs[index].added} />
-                      <Diff
-                        type={'Removed'}
-                        record={jsonDiffs[index].removed}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-            )
-          })}
-        </div>
+        <ResultList
+          jsonObjects={jsonObjects}
+          jsonDiffs={jsonDiffs}
+          remove={remove}
+        />
       )}
     </div>
   )

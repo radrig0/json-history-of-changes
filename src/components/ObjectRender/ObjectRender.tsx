@@ -1,5 +1,6 @@
 import styles from './ObjectRender.module.css'
 import cn from 'classnames'
+import { valueRender } from '../../utils/valueRender'
 
 interface IProps {
   object: Record<string, string>
@@ -15,7 +16,7 @@ export const ObjectRender = ({ object }: IProps) => {
             key={key}
             className={cn(styles.recordLine, styles.recordLineMargin)}
           >
-            {key}: {object[key]}
+            {key}: {valueRender(object[key])}
           </div>
         )
       })}

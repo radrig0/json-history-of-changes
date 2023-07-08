@@ -1,0 +1,15 @@
+[
+  {
+    "field": "value",
+    "typedField": 0
+  },
+  {
+    "field": "newValue",
+    "typedField": "0",
+    "newField": "value"
+  },
+  {
+    "typedField": 0,
+    "newField": "newValue"
+  }
+]
