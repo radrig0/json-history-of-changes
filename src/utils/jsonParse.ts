@@ -8,7 +8,8 @@ export const jsonParse = (value: string): IJsonParseResult => {
   }
 
   try {
-    const parsedData = JSON.parse(value)
+    const preparedValue = prepareString(value)
+    const parsedData = JSON.parse(preparedValue)
 
     result.parsedData = Array.isArray(parsedData) ? parsedData : [parsedData]
 
@@ -19,4 +20,23 @@ export const jsonParse = (value: string): IJsonParseResult => {
   }
 
   return result
+}
+
+const prepareString = (value: string) => {
+  let newValue = value
+  newValue = newValue.replaceAll('“', '"')
+  newValue = newValue.replaceAll('”', '"')
+
+  const trimmedSymbols = ['"', "'", ',']
+
+  if (trimmedSymbols.includes(newValue[0])) {
+    newValue = newValue.substring(1)
+  }
+
+  if (trimmedSymbols.includes(newValue[newValue.length - 1])) {
+    newValue = newValue.substring(0, newValue.length - 1)
+  }
+
+  console.log(newValue)
+  return newValue
 }
