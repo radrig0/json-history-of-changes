@@ -1,0 +1,18 @@
+[
+  {
+    "firstValue": 0,
+    "secondValue": "one"
+  },
+  {
+    "firstValue": 1,
+    "secondValue": "one",
+    "thirdValue": "three"
+  },
+  {
+    "thirdValue": "three"
+  },
+  {
+    "thirdValue": "three",
+    "fourthValue": "four"
+  }
+]

@@ -18,9 +18,9 @@ h1 {
 }
 
 textarea {
-  @apply border-2
+  @apply rounded border-2 p-1.5 focus:border-blue-500
 }
 
 button {
-  @apply border-2 p-2
+  @apply border-2 p-1.5 rounded
 }

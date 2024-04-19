@@ -4,6 +4,7 @@ import cn from 'classnames'
 import { ResultList } from './components/ResultList/ResultList'
 import { IDiff, IJsonDiff, TValue } from './models/models'
 import { jsonParse } from './utils/jsonParse'
+import { Button } from './components/button/Button.tsx'
 
 function App() {
   const [textValue, setTextValue] = useState('')
@@ -14,6 +15,7 @@ function App() {
   const onChangeTextValue: React.ChangeEventHandler<HTMLTextAreaElement> =
     useCallback((event) => {
       setTextValue(event.target.value)
+      setTextError('')
     }, [])
 
   const add = useCallback(() => {
@@ -50,7 +52,7 @@ function App() {
       newState.splice(index, 1)
       setJsonObjects(newState)
     },
-    [jsonObjects]
+    [jsonObjects],
   )
 
   useEffect(() => {
@@ -73,7 +75,7 @@ function App() {
               } else if (prevValue !== currentValue) {
                 Changed[jsonKey] = { prevValue, currentValue }
               }
-            }
+            },
           )
         }
 
@@ -92,21 +94,21 @@ function App() {
         <h1>
           Put your object or array of object here
         </h1>
-        {textError && <div className={styles.errorMessage}>{textError}</div>}
+        {textError && <div className="text-red-600">{textError}</div>}
         <textarea
           className={cn({
             [styles.textInput]: true,
-            [styles.error]: textError,
+            "text-red-600": textError,
           })}
           name="jsonInput"
           id="jsonInput"
           value={textValue}
           onChange={onChangeTextValue}
         />
-        <div>
-          <button onClick={add}>Add</button>{' '}
-          <button onClick={clearInput}>Clear input</button>{' '}
-          <button onClick={clearList}>Clear list</button>
+        <div className="flex gap-2">
+          <Button onClick={add}>Add</Button>
+          <Button type={'secondary'} onClick={clearInput}>Clear input</Button>
+          <Button type={'secondary'} onClick={clearList}>Clear list</Button>
         </div>
       </div>
 
