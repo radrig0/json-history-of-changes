@@ -89,9 +89,9 @@ function App() {
   return (
     <div className={styles.App}>
       <div className={styles.inputWrapper}>
-        <div className={styles.title}>
+        <h1>
           Put your object or array of object here
-        </div>
+        </h1>
         {textError && <div className={styles.errorMessage}>{textError}</div>}
         <textarea
           className={cn({
