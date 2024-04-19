@@ -1,6 +1,6 @@
 import styles from './ResultList.module.css'
 import cn from 'classnames'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { ObjectRender } from '../ObjectRender/ObjectRender'
 import { Diff } from '../Diff/Diff'
 import { IJsonDiff, TValue } from '../../models/models'
