@@ -92,7 +92,7 @@ function App() {
     <div className={styles.App}>
       <div className={styles.inputWrapper}>
         <h1>
-          Put your object or array of object here
+          Put your json object or array of json objects here
         </h1>
         {textError && <div className="text-red-600">{textError}</div>}
         <textarea
